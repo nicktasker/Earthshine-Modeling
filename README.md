@@ -3,8 +3,7 @@
 I work with Dr. Theodora Karalidi, a post-dosctoral researcher at UC Santa Cruz and an expert in brown dwarf and exoplanet atmospheres.
 This repo houses the Python code which I use to generate plots and ASCII tables from NASA MODIS data for use in modeling an Earth-like exoplanet. This is to compare with observations of the Earthshine with the William Herschel Telescope (WHT) on May 18, 2013 (see [this paper](https://www.aanda.org/articles/aa/pdf/2014/02/aa23009-13.pdf) by Miles-Páez et. al.).
 
-MODIS data acquired here:
-https://ladsweb.modaps.eosdis.nasa.gov/search/
+MODIS data acquired [here](https://ladsweb.modaps.eosdis.nasa.gov/search/).
 
 ABSTRACT
 
