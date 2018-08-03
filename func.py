@@ -203,7 +203,7 @@ def terminator(date):
     outputs: numpy masked array of size 90 x 180. Two values: night = 1, day = NaN
     '''
 
-    lons2, lats2, daynight = solar.daynight_grid(dat, 2, -180, 179)   # gets grid of day/night values, night = 1, day = NaN
+    lons2, lats2, daynight = solar.daynight_grid(date, 2, -180, 179)   # gets grid of day/night values, night = 1, day = NaN
 
     daynight = np.delete(daynight, 90, 0)   # gets daynight to be 90x180
     
@@ -284,7 +284,6 @@ def landtypes(landfile, snowfile, landsds_name, snowsds_name, daynight, in_res =
     west_edge = range(0,26)
     east_edge = range(115,180)    # these are the edges of the Earth's disk as seen from the moon
                                   # on the night of observation at 21:20 UT
-    print landcover
 
     # makes values None outside of lon range
 
