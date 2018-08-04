@@ -298,7 +298,7 @@ def landtypes(landfile, snowfile, landsds_name, snowsds_name, daynight, in_res =
     return landcover
 
 
-def ctp_cot(cloudfile, sdslist, ctpbins, cotbins, daynight, is_ctp = True):
+def cot_ctp(cloudfile, sdslist, ctpbins, cotbins, daynight, is_ctp = True):
     
     '''
     Use this function to extract data from MYD08_D3 files - particularly cloud top pressure (CTP)
@@ -308,7 +308,7 @@ def ctp_cot(cloudfile, sdslist, ctpbins, cotbins, daynight, is_ctp = True):
     values are binned. This array can then be plotted or saved as an ascii table by the user    
     
     INPUTS: cloudfile: path to HDF file containing MODIS cloud profile data
-            sdslist: name of desired SDS from MODIS cloud profile file
+            sdslist: name of desired SDS from MODIS cloud profile file - [cot, ctp]
             ctpbins: list of bin edges for values of CTP
             cotbins: list of bin edges for values of COT
             daynight: numpy masked array (output of local function func.terminator)
@@ -335,9 +335,8 @@ def ctp_cot(cloudfile, sdslist, ctpbins, cotbins, daynight, is_ctp = True):
     if is_ctp == True:    
         ctp *= 0.001   # converts from hPa to bars
     
-    ctp = rebindat(ctp, ctpbins)   # rebins ctp values to desired bins
     cot = rebindat(cot, cotbins)
-    
+    ctp = rebindat(ctp, ctpbins)   # rebins ctp values to desired bins    
     
     west_edge = range(0,26)     # west edge of earth's visible disk from moon
     east_edge = range(115,180)  # east edge of earth's visible disk from moon
@@ -360,7 +359,7 @@ def ctp_cot(cloudfile, sdslist, ctpbins, cotbins, daynight, is_ctp = True):
                 cot[i][j] = np.nan
                 ctp[i][j] = np.nan    # this changes values of unlit parts of earth to NaN
                 
-    return ctp, cot
+    return cot, ctp
 
 
 def unique_combos(arr1, arr2, arr3):
