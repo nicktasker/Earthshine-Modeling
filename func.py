@@ -401,3 +401,55 @@ def unique_combos(arr1, arr2, arr3):
             combos.append(i)    # only adds unique combos of each three arrays at one point to this list.
 
     return combos
+
+def timediffs(date):
+    
+    '''
+    Finds the center of view, western edge, and eastern edge of the disk of Earth as viewed from
+    the moon at a particular time. This is achieved using the change in time from 21:20 UT on 
+    5/18/2013.
+    
+    INPUTS: date - datetime object (datetime(year,month,day,hour,min,sec))
+    
+    OUTPUTS: center (float) - central longitude value for use in Basemap plotting
+             west_edge (np.array) - 2D array of lat/lon values west of the western edge of Earth disk
+             east_edge (np.array) - 2D array of lat/lon values east of the eastern edge of Earth disk
+    '''
+    
+    date0 = datetime(2013,5,18,21,20,0)    # 21:20
+    lon0 = -39.8333                        # center of disk at 21:20
+    
+    ### FINDING TIME DIFFERENCE IN MINUTES
+    
+    fmt = '%Y-%m-%d %H:%M:%S'
+    d1 = datetime.strptime(str(date0), fmt)
+    d2 = datetime.strptime(str(date), fmt)
+
+    # Convert to Unix timestamp
+    d1_ts = time.mktime(d1.timetuple())
+    d2_ts = time.mktime(d2.timetuple())
+
+    # They are now in seconds, subtract and then divide by 60 to get minutes.
+    dt = int(d2_ts-d1_ts) / 60
+    
+    ### FINDING CENTER & EDGES OF DISK
+    
+    center = lon0 - (0.25*dt)   # center of disk at new time
+    
+    west = center - 90    # west edge of disk
+    east = center + 90    # east edge of disk
+    
+    www = (west + 180) / 2    # convert to a value in the 90x180 array
+    eee = (east + 180) / 2
+    
+    if www - (int(www) + 0.5) < 0:       # This rounds each edge value and coerces it
+        wedge = int((west + 180) / 2)    # to be an integer
+        eedge = int((east + 180) / 2)
+    else:
+        wedge = int(math.ceil(www))
+        eedge = int(math.ceil(eee))
+    
+    west_edge = range(0, wedge)    # create arrays for values which are not visible
+    east_edge = range(eedge, 180)
+    
+    return center, west_edge, east_edge
