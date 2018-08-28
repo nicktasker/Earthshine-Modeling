@@ -415,6 +415,8 @@ def timediffs(date):
              west_edge (np.array) - 2D array of lat/lon values west of the western edge of Earth disk
              east_edge (np.array) - 2D array of lat/lon values east of the eastern edge of Earth disk
     '''
+    from datetime import datetime
+    import time
     
     date0 = datetime(2013,5,18,21,20,0)    # 21:20
     lon0 = -39.8333                        # center of disk at 21:20
